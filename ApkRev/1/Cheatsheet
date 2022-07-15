@@ -1,0 +1,52 @@
+#Number
+const v9, 0xf4240
+const/4 v8, 0x1
+#Strings
+const-string v5, "wins"
+
+-------------------------------------------------
+Basic Operations
+-------------------------------------------------
+#Math
+add-int/lit8 v0, v2, 0x1 #v2 + 0x1 and save it in v0
+mul-int v0,v2,0x2 #v2*0x2 and save in v0
+
+#Move the value of one object into another
+move v1,v2
+
+#Condtions
+if-ge #Greater or equals
+if-le #Less or equals
+if-eq #Equals
+
+#Get/Save attributes of an object
+iget v0, p0, Lcom/google/ctf/shallweplayagame/GameActivity;->o:I #Save this.o inside v0
+iput v0, p0, Lcom/google/ctf/shallweplayagame/GameActivity;->o:I #Save v0 inside this.o
+
+#goto
+:goto_6 #Declare this where you want to start a loop
+if-ne v0, v9, :goto_6 #If not equals, go to: :goto_6
+goto :goto_6 #Always go to: :goto_6
+
+------------------------------------------------
+Logging
+------------------------------------------------
+#Log win: <number>
+iget v5, p0, Lcom/google/ctf/shallweplayagame/GameActivity;->o:I #Get this.o inside v5
+invoke-static {v5}, Ljava/lang/String;->valueOf(I)Ljava/lang/String; #Transform number to String
+move-result-object v1 #Move to v1
+const-string v5, "wins" #Save "win" inside v5
+invoke-static {v5, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I #Logging "Wins: <num>"
+
+-----------------------------------------------
+Toasting
+------------------------------------------------
+const/4 v10, 0x1
+const/4 v11, 0x1
+const/4 v12, 0x1
+iget v10, p0, Lcom/google/ctf/shallweplayagame/GameActivity;->o:I
+invoke-static {v10}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+move-result-object v11
+invoke-static {p0, v11, v12}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+move-result-object v12
+invoke-virtual {v12}, Landroid/widget/Toast;->show()V
